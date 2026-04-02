@@ -70,3 +70,7 @@ Sky blue `#0EA5E9` meets earth brown `#92400E` on warm cream `#FFFBF0`. Adventur
 ---
 
 Built with [cocapn](https://github.com/cocapn) — the repo IS the agent.
+
+## License
+
+MIT — Built with ❤️ by [Superinstance](https://github.com/superinstance) & [Lucineer](https://github.com/Lucineer) (DiGennaro et al.)
