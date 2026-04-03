@@ -394,6 +394,8 @@ export default {
 
       // Landing page
       if (path === '/' || path === '/index.html') {
+
+  if (path === '/api/efficiency' && request.method === 'GET') {    return new Response(JSON.stringify({ totalCached: 0, totalHits: 0, cacheHitRate: 0, tokensSaved: 0, repo: 'travelog-ai', timestamp: Date.now() }), { headers: { 'Content-Type': 'application/json', ...corsHeaders() } });  }
         const htmlContent = await env.TRAVELOG_KV.get('travelog:landing', 'text');
         if (htmlContent) return html(htmlContent);
         // Serve from bundled asset
