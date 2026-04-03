@@ -1,3 +1,4 @@
+account_id = "2bd99d5b13b2186382cd3dc995b0bb18"
 name = "travelog-ai"
 main = "src/worker.ts"
 compatibility_date = "2024-11-01"
@@ -8,7 +9,7 @@ MODEL = "deepseek-chat"
 
 [[kv_namespaces]]
 binding = "TRAVELOG_KV"
-id = "your-kv-namespace-id"
+id = "018529e035df4ff69cf6e82143a0e70f"
 
 # Secrets (set via `wrangler secret put`):
 #   DEEPSEEK_API_KEY
