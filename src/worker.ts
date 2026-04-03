@@ -195,6 +195,12 @@ async function handleTrips(request: Request, kv: KVNamespace): Promise<Response>
 
   if (request.method === 'GET') {
     const url = new URL(request.url);
+
+    if (url.pathname === '/health') {
+      return new Response(JSON.stringify({ status: 'ok', repo: 'travelog-ai', timestamp: Date.now() }), {
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+      });
+    }
     const status = url.searchParams.get('status') as any;
     const destination = url.searchParams.get('destination') ?? undefined;
     return json(planner.listTrips({ status, destination }));
