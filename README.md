@@ -1,43 +1,56 @@
-# travelog.ai
+# Travelog.ai
 
-A vessel for travelers. Your personal AI travel companion that remembers every trip, every place, every restaurant.
+Your personal AI travel companion that remembers every trip, place, and moment.
 
-## What it does
+You return from a trip with hundreds of photos and scattered notes. Details fade over time—the name of that perfect hillside café, the beach where you watched sunset, the reason you laughed so hard in Porto.
 
-travelog.ai is a repo-native AI agent that becomes your personal travel guide — one that has actually been everywhere you have.
+This exists for that.
 
-- **Trip Planner** — Full trip lifecycle with days, activities, accommodations
-- **Place Memory** — Remember every restaurant, museum, viewpoint with ratings and notes
-- **Travel Journal** — Date, location, content, mood, weather, tags with full-text search
-- **AI Chat** — Ask "restaurants like the one we loved in Lisbon?" and get personalized answers
-- **Recommendations** — Based on your travel history, discover new places you'll love
-- **Budget Tracker** — Per-trip expense tracking by category
-- **Travel Stats** — Countries visited, days traveling, favorite types
+Travelog.ai is not a booking platform or social feed. It's a private memory bank for your travels—hosted by you, designed only to remember.
 
-## Stack
+---
 
-- **Runtime**: Cloudflare Workers (edge)
+## What It Does
+
+A self-hosted travel companion that tracks your journeys and learns your preferences.
+
+- **Trip Tracking** – Plan, log, and review trips with a timeline of stays and activities
+- **Place Memory** – Save restaurants, viewpoints, and museums with your ratings and notes
+- **Contextual Journal** – Entries automatically attach location, weather, and mood. Full-text search across all trips
+- **Personal AI Chat** – Ask questions like “what was that wine bar in Lisbon?” or “where should I go next?” based on your history
+- **Tailored Suggestions** – Recommendations built from your past travels, not popular lists
+- **Budget Tracking** – Log expenses by category without complexity
+- **Travel Stats** – Countries visited, days traveling, most frequented place types
+
+## Limitations
+
+The AI only knows what you tell it. Without external data sources, it cannot suggest new places you haven’t visited or provide real-time information like opening hours.
+
+## Architecture
+
+- **Runtime**: Cloudflare Workers (edge deployed)
 - **Storage**: Cloudflare KV
-- **AI**: DeepSeek (SSE streaming)
-- **Frontend**: Single-page HTML (sky blue + earth tones)
+- **AI**: DeepSeek with streaming responses
+- **Frontend**: Vanilla HTML/CSS/JS
 
 ## API
 
 | Route | Method | Description |
 |-------|--------|-------------|
-| `GET /` | GET | Landing page |
-| `GET /app.html` | GET | Adventure UI |
-| `/api/chat` | POST | SSE streaming chat with DeepSeek |
-| `/api/trips` | GET/POST | List / CRUD trips |
-| `/api/places` | GET/POST | List / CRUD saved places |
-| `/api/journal` | GET/POST | List / CRUD journal entries |
-| `/api/map` | GET | All places for map integration |
-| `/api/recommendations` | GET | AI recommendations based on history |
+| `/` | GET | Landing page |
+| `/app.html` | GET | Main interface |
+| `/api/chat` | POST | Streaming AI chat |
+| `/api/trips` | GET/POST | Trip management |
+| `/api/places` | GET/POST | Saved places |
+| `/api/journal` | GET/POST | Journal entries |
+| `/api/map` | GET | GeoJSON export |
+| `/api/recommendations` | GET | Personalized suggestions |
 
 ## Quick Start
 
 ```bash
-# Install dependencies
+# Clone and install
+git clone <repository>
 npm install
 
 # Set your DeepSeek API key
@@ -46,31 +59,19 @@ npx wrangler secret put DEEPSEEK_API_KEY
 # Run locally
 npm run dev
 
-# Deploy to Cloudflare
+# Deploy to your Cloudflare account
 npm run deploy
 ```
 
-## Project Structure
-
-```
-src/
-  worker.ts          # Cloudflare Worker — all API routes + SSE streaming
-  trips/
-    planner.ts       # Trip lifecycle, PlaceMemory, RecommendationEngine, BudgetTracker, TripTimeline
-  journal/
-    writer.ts        # JournalEntry, PhotoAssociation, TravelStats, SearchableHistory
-public/
-  app.html           # Adventure UI — sky blue, earth brown, warm cream
-```
-
-## Design
-
-Sky blue `#0EA5E9` meets earth brown `#92400E` on warm cream `#FFFBF0`. Adventure aesthetic with trip cards, place pins, journal timeline, and an AI chat that knows your travel history.
+Once deployed, visit your Worker URL to start using the travelog.
 
 ---
 
-Built with [cocapn](https://github.com/cocapn) — the repo IS the agent.
-
-## License
-
-MIT — Built with ❤️ by [Superinstance](https://github.com/superinstance) & [Lucineer](https://github.com/Lucineer) (DiGennaro et al.)
+<div>
+  <p>
+    Part of the <a href="https://the-fleet.casey-digennaro.workers.dev">Cocapn Fleet</a> – open-source agent runtime and fleet protocol.
+  </p>
+  <p>
+    Attribution: Superinstance & Lucineer (DiGennaro et al.). Source: <a href="https://cocapn.ai">cocapn.ai</a>
+  </p>
+</div>
