@@ -1,77 +1,41 @@
-# Travelog.ai
+# travelog-ai
 
-Your personal AI travel companion that remembers every trip, place, and moment.
+You come home from a trip. Your memories are scattered across your camera roll, notes app, and maps. This is a private, self-hosted AI travel journal that runs on Cloudflare Workers. You own all your data.
 
-You return from a trip with hundreds of photos and scattered notes. Details fade over time—the name of that perfect hillside café, the beach where you watched sunset, the reason you laughed so hard in Porto.
-
-This exists for that.
-
-Travelog.ai is not a booking platform or social feed. It's a private memory bank for your travels—hosted by you, designed only to remember.
-
----
+**Live Demo:** [travelog-ai.casey-digennaro.workers.dev](https://travelog-ai.casey-digennaro.workers.dev)
 
 ## What It Does
 
-A self-hosted travel companion that tracks your journeys and learns your preferences.
+Travelog-ai is a single-page web app you host yourself. It provides a central place to log past trips, plan future ones, and save places you've visited. You can ask it questions about your travels in natural language.
 
-- **Trip Tracking** – Plan, log, and review trips with a timeline of stays and activities
-- **Place Memory** – Save restaurants, viewpoints, and museums with your ratings and notes
-- **Contextual Journal** – Entries automatically attach location, weather, and mood. Full-text search across all trips
-- **Personal AI Chat** – Ask questions like “what was that wine bar in Lisbon?” or “where should I go next?” based on your history
-- **Tailored Suggestions** – Recommendations built from your past travels, not popular lists
-- **Budget Tracking** – Log expenses by category without complexity
-- **Travel Stats** – Countries visited, days traveling, most frequented place types
+## Features
 
-## Limitations
+*   **Streaming AI Chat:** Ask "what was that wine bar in Lisbon?" and get an answer based on your own saved journals and places.
+*   **Automatic Entry Tagging:** Entries you write are automatically tagged with the local weather, time, and location at the moment of posting.
+*   **Personal Place Library:** Save restaurants, hikes, or museums with your own notes and ratings.
+*   **Trip Timeline:** View your past and upcoming travels in a single chronological scroll.
+*   **One-Click GeoJSON Export:** Download all your saved locations to use in other mapping tools.
 
-The AI only knows what you tell it. Without external data sources, it cannot suggest new places you haven’t visited or provide real-time information like opening hours.
+## How It Works
 
-## Architecture
+You fork this repository and deploy it once to your own Cloudflare account. The application is a single, self-contained Cloudflare Worker with no runtime dependencies. It uses:
+*   Cloudflare Workers for hosting and API logic.
+*   Cloudflare KV for private, persistent storage.
+*   A third-party LLM API (DeepSeek) to power the chat feature. Your data is only sent to the LLM when you actively ask a question.
 
-- **Runtime**: Cloudflare Workers (edge deployed)
-- **Storage**: Cloudflare KV
-- **AI**: DeepSeek with streaming responses
-- **Frontend**: Vanilla HTML/CSS/JS
+## One Honest Limitation
 
-## API
-
-| Route | Method | Description |
-|-------|--------|-------------|
-| `/` | GET | Landing page |
-| `/app.html` | GET | Main interface |
-| `/api/chat` | POST | Streaming AI chat |
-| `/api/trips` | GET/POST | Trip management |
-| `/api/places` | GET/POST | Saved places |
-| `/api/journal` | GET/POST | Journal entries |
-| `/api/map` | GET | GeoJSON export |
-| `/api/recommendations` | GET | Personalized suggestions |
+Automatic location and weather tagging for journal entries requires your browser to provide accurate GPS data at the time of writing. If location services are off or inaccurate, you will need to tag entries manually.
 
 ## Quick Start
 
-```bash
-# Clone and install
-git clone <repository>
-npm install
+1.  **Fork** this repository to your GitHub account.
+2.  Clone your fork locally and run `npm run deploy`. Follow the Cloudflare Wrangler setup prompts.
+3.  Set your `DEEPSEEK_API_KEY` as a secret in your Cloudflare Worker.
+4.  Your instance is live. You can modify the frontend in `/public` or the agent logic in `/src` at any time.
 
-# Set your DeepSeek API key
-npx wrangler secret put DEEPSEEK_API_KEY
+Open source, MIT license.
 
-# Run locally
-npm run dev
+Attribution: Superinstance and Lucineer (DiGennaro et al.)
 
-# Deploy to your Cloudflare account
-npm run deploy
-```
-
-Once deployed, visit your Worker URL to start using the travelog.
-
----
-
-<div>
-  <p>
-    Part of the <a href="https://the-fleet.casey-digennaro.workers.dev">Cocapn Fleet</a> – open-source agent runtime and fleet protocol.
-  </p>
-  <p>
-    Attribution: Superinstance & Lucineer (DiGennaro et al.). Source: <a href="https://cocapn.ai">cocapn.ai</a>
-  </p>
-</div>
+<div style="text-align:center;padding:16px;color:#64748b;font-size:.8rem"><a href="https://the-fleet.casey-digennaro.workers.dev" style="color:#64748b">The Fleet</a> &middot; <a href="https://cocapn.ai" style="color:#64748b">Cocapn</a></div>
